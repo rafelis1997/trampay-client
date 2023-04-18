@@ -93,7 +93,7 @@ export default function Home() {
         </button>
         <Link
           href="/sign-up"
-          className="text-slate-700 font-bold text-lg py-2 rounded bg-brand-500 hover:bg-brand-700 disabled:bg-brand-700 disabled:cursor-not-allowed"
+          className="text-center text-slate-700 font-bold text-lg py-2 rounded bg-brand-500 hover:bg-brand-700 disabled:bg-brand-700 disabled:cursor-not-allowed"
         >
           Criar usuário
         </Link>
