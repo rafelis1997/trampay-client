@@ -1,15 +1,23 @@
 import { z } from "zod";
+import axios from "axios";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
+import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
+import { useAuth } from "@/hooks/useAuth";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 const sendTransactionsFormSchema = z.object({
-  file:
+  file_asset:
     typeof window === "undefined" ? z.string() : z.record(z.any()).nullable(),
 });
 
 type sendTransactionsInput = z.infer<typeof sendTransactionsFormSchema>;
 
-export default function ResetPassword() {
+export default function SendTransactions() {
+  const { token, isLoggedIn } = useAuth();
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -17,22 +25,62 @@ export default function ResetPassword() {
   } = useForm<sendTransactionsInput>({
     resolver: zodResolver(sendTransactionsFormSchema),
     defaultValues: {
-      file: undefined,
+      file_asset: undefined,
     },
   });
 
+  async function sendFile(data: sendTransactionsInput) {
+    try {
+      const formData = new FormData();
+      const files = data.file_asset as FileList;
+      formData.append("file_asset", files[0]);
+      await axios.post("http://localhost:3333/users/transactions", formData, {
+        headers: {
+          Authorization: "Bearer " + token,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      toast.success("Transações adicionadas com sucesso", {
+        position: "bottom-center",
+      });
+    } catch (error) {
+      toast.error("Não foi possível adicionar as transações", {
+        theme: "dark",
+        position: "bottom-center",
+      });
+    }
+  }
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      router.push("/");
+    }
+  }, [isLoggedIn, router]);
+
   return (
     <div className="flex-1 flex justify-center items-center">
-      <form className="flex flex-col grow gap-4 max-w-md bg-slate-200 p-12 rounded drop-shadow-md">
+      <form
+        className="flex flex-col grow gap-4 max-w-md bg-slate-200 p-12 rounded drop-shadow-md"
+        onSubmit={handleSubmit(sendFile)}
+        encType="multipart/form-data"
+      >
         <h1 className="font-bold text-2xl">Resetar senha</h1>
-        <label htmlFor="email" className="flex flex-col grow font-semibold">
+        <label
+          htmlFor="file_asset"
+          className="flex flex-col grow font-semibold"
+        >
           Envie o arquivo (.csv) com as transações
           <input
             type="file"
+            accept=".csv"
             placeholder="Arquivo .csv"
             className="font-normal mt-2 px-4 py-2 rounded-sm"
-            {...register("file")}
+            {...register("file_asset")}
           />
+          {errors.file_asset && (
+            <p className="text-red-500">{errors.file_asset?.message}</p>
+          )}
         </label>
 
         <button

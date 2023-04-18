@@ -27,12 +27,14 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
     const token = localStorage.getItem("session_token");
 
     if (token) {
-      const user: UserResponse | undefined = await axios.get(
-        `http://localhost:3000/auth/tokenValidate/${token}`
+      const user = await axios.get(
+        `http://localhost:3333/auth/tokenValidate/${token}`
       );
 
+      const { data }: { data: UserResponse | undefined } = user;
+
       if (user) {
-        setSession({ user, token });
+        setSession({ user: data, token });
       }
     }
   }
@@ -40,7 +42,7 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
   async function signIn(email: string, password: string) {
     console.log("Signing in...");
     try {
-      const session = await axios.post("http://localhost:3000/auth/login", {
+      const session = await axios.post("http://localhost:3333/auth/login", {
         email,
         password,
       });
@@ -57,7 +59,7 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
   }
 
   useEffect(() => {
-    // checkIfThereIsSession();
+    checkIfThereIsSession();
   }, []);
 
   return (
