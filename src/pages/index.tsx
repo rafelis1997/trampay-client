@@ -91,6 +91,12 @@ export default function Home() {
         >
           Entrar
         </button>
+        <Link
+          href="/sign-up"
+          className="text-slate-700 font-bold text-lg py-2 rounded bg-brand-500 hover:bg-brand-700 disabled:bg-brand-700 disabled:cursor-not-allowed"
+        >
+          Criar usuário
+        </Link>
       </form>
     </div>
   );
