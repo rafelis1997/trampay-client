@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { useAuth } from "@/hooks/useAuth";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { axiosApi } from "@/api/api";
 
 const sendTransactionsFormSchema = z.object({
   file_asset:
@@ -34,7 +35,7 @@ export default function SendTransactions() {
       const formData = new FormData();
       const files = data.file_asset as FileList;
       formData.append("file_asset", files[0]);
-      await axios.post("http://localhost:3333/users/transactions", formData, {
+      await axiosApi.post("/users/transactions", formData, {
         headers: {
           Authorization: "Bearer " + token,
           "Content-Type": "multipart/form-data",

@@ -42,6 +42,7 @@ export default function Home() {
   }
 
   useEffect(() => {
+    console.log(process.env.BASE_URL);
     if (isLoggedIn) {
       router.push("/send-transactions");
     }

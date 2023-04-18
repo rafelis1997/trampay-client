@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "next/router";
 import axios from "axios";
+import { axiosApi } from "@/api/api";
 
 const signUpFormSchema = z
   .object({
@@ -45,7 +46,7 @@ export default function Home() {
     document,
   }: signUpFormInputs) {
     try {
-      await axios.post("http://localhost:3333/users", {
+      await axiosApi.post("/users", {
         email,
         password,
         document,
@@ -65,6 +66,7 @@ export default function Home() {
   }
 
   useEffect(() => {
+    console.log(process.env.BASE_URL);
     if (isLoggedIn) {
       router.push("/send-transactions");
     }

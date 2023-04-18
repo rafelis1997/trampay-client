@@ -1,5 +1,6 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
 import axios from "axios";
+import { axiosApi } from "../api/api";
 
 type UserResponse = {
   id: string;
@@ -27,9 +28,7 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
     const token = localStorage.getItem("session_token");
 
     if (token) {
-      const user = await axios.get(
-        `http://localhost:3333/auth/tokenValidate/${token}`
-      );
+      const user = await axiosApi.get(`/auth/tokenValidate/${token}`);
 
       const { data }: { data: UserResponse | undefined } = user;
 
@@ -42,7 +41,7 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
   async function signIn(email: string, password: string) {
     console.log("Signing in...");
     try {
-      const session = await axios.post("http://localhost:3333/auth/login", {
+      const session = await axiosApi.post("/auth/login", {
         email,
         password,
       });

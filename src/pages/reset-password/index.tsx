@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useState } from "react";
+import { axiosApi } from "@/api/api";
 
 const resetPasswordFormSchema = z.object({
   email: z.string().email("Por favor insira um email em um formato válido"),
@@ -27,12 +28,9 @@ export default function ResetPassword() {
 
   async function handleResetPassword({ email }: resetPasswordInputs) {
     try {
-      const response = await axios.post(
-        "http://localhost:3333/auth/recoverPassword",
-        {
-          email,
-        }
-      );
+      const response = await axiosApi.post("/auth/recoverPassword", {
+        email,
+      });
       setLink(response.data);
     } catch (error) {
       toast.error("Não foi possível enviar para o email informado", {

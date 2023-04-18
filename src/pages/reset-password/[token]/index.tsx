@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { axiosApi } from "@/api/api";
 
 const newPasswordFormSchema = z
   .object({
@@ -36,7 +37,7 @@ export default function ChangePassword() {
 
   async function handleResetPassword({ password }: newPasswordFormInputs) {
     try {
-      await axios.put(`http://localhost:3333/auth/recoverPassword/${token}`, {
+      await axiosApi.put(`/auth/recoverPassword/${token}`, {
         password,
       });
 
