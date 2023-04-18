@@ -1,12 +1,15 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 
-import { RootLayout } from "../layouts/rootLayout";
+import { RootLayout } from "../components/layouts/rootLayout";
+import { AuthContextProvider } from "@/contexts/auth-contex";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <RootLayout>
-      <Component {...pageProps} />
-    </RootLayout>
+    <AuthContextProvider>
+      <RootLayout>
+        <Component {...pageProps} />
+      </RootLayout>
+    </AuthContextProvider>
   );
 }

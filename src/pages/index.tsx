@@ -1,6 +1,9 @@
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useAuth } from "@/hooks/useAuth";
+import { useContext } from "react";
+import { AuthContext } from "@/contexts/auth-contex";
 
 const loginFormSchema = z.object({
   email: z.string().email("Por favor insira um email em um formato válido"),
@@ -10,6 +13,7 @@ const loginFormSchema = z.object({
 type loginFormInputs = z.infer<typeof loginFormSchema>;
 
 export default function Home() {
+  const { signIn, user } = useAuth();
   const {
     register,
     handleSubmit,
@@ -22,9 +26,16 @@ export default function Home() {
     },
   });
 
+  async function handleFormSubmit({ email, password }: loginFormInputs) {
+    await signIn(email, password);
+  }
+
   return (
     <div className="flex-1 flex justify-center items-center">
-      <form className="flex flex-col grow gap-4 max-w-md bg-slate-200 p-12 rounded drop-shadow-md">
+      <form
+        className="flex flex-col grow gap-4 max-w-md bg-slate-200 p-12 rounded drop-shadow-md"
+        onSubmit={handleSubmit(handleFormSubmit)}
+      >
         <h1 className="font-bold text-2xl">Sign-in</h1>
         <label htmlFor="email" className="flex flex-col grow font-semibold">
           Email
