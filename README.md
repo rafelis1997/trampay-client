@@ -1,38 +1,66 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Trampay Fullstack Challenge
 
-## Getting Started
+Este projeto faz parto do desafio para a vaga de Fullstack JR da empresa Trampay, ele é composto por dois repositórios.
+- [Trampay API](https://github.com/rafelis1997/trampay-api);
+- [Trampay Client](https://github.com/rafelis1997/trampay-client);
 
-First, run the development server:
+O projeto Client pode ser acessado em produção pelo link [Trampay Client](https://trampay-client.vercel.app)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+Para testar localmente cada repositório, ambos devem ser clonados na sua máquina.
+
+## Para executar o projeto API localmente, siga os passos abaixo:
+
+Clone o repositório para sua máquina local.
+
+Navegue até a pasta do projeto e instale as dependências usando npm install ou yarn.
+
+Assegure-se de ter o docker instalado na sua máquina: [Instalação docker](https://docs.docker.com/get-docker/)
+
+Após ter o docker instalado, rode o comando: 
+
+`docker run --name postgres-db -e POSTGRES_PASSWORD=docker -p 5432:5432 -d postgres`
+
+Crie um arquivo .env na raiz do projeto e adicione as variáveis de ambiente necessárias para a configuração do banco de dados e outras configurações. Por exemplo:
+
+
+```
+DATABASE_URL="postgresql://postgres:docker@localhost:5432/postgres-db?schema=public"
+
+JWT_SECRET_KEY=place here a long jwt secret
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Rode o comando: `npx prisma db push`
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+Inicie o servidor de desenvolvimento NestJS usando `npm run start:dev ou yarn start:dev`.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+Use um software como [Insomnia](https://insomnia.rest/download) ou Postman e acesse a aplicação em <https://localhost:3333/>.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+A documentação das rotas pode ser acessada em <http://localhost:3333/api/docs/>
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Se encontrar problemas ao executar o projeto, verifique se todas as dependências foram instaladas corretamente e se as variáveis de ambiente estão configuradas corretamente. Você também pode entrar em contato comigo para obter suporte ou fazer perguntas.
 
-## Learn More
+## Para executar o projeto Client localmente, siga os passos abaixo: 
 
-To learn more about Next.js, take a look at the following resources:
+Clone o repositório para sua máquina local.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Navegue até a pasta do projeto e instale as dependências usando npm install ou yarn.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Certifique-se que o projeto [Trampay API](https://github.com/rafelis1997/trampay-api) 
 
-## Deploy on Vercel
+esteja rodando na sua máquina, seguindo os passos acima
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Rode o comando: `npm start dev`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+VocÊ pode acessar a aplicação no navegador em <http://localhost:3000/>
+
+Se encontrar problemas ao executar o projeto você também pode entrar em contato comigo para obter suporte ou fazer perguntas.
+
+## Tecnologias utilizadas
+
+- Nest.js
+- Next.js
+- Docker
+- PostgreSQL
+- Prisma
+- TailwindCSS
+- Swagger
