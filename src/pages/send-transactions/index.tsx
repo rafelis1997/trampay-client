@@ -16,7 +16,7 @@ const sendTransactionsFormSchema = z.object({
 type sendTransactionsInput = z.infer<typeof sendTransactionsFormSchema>;
 
 export default function SendTransactions() {
-  const { token, isLoggedIn } = useAuth();
+  const { token, isLoggedIn, renewSession } = useAuth();
   const router = useRouter();
 
   const {
@@ -41,6 +41,8 @@ export default function SendTransactions() {
           "Content-Type": "multipart/form-data",
         },
       });
+
+      await renewSession();
 
       toast.success("Transações adicionadas com sucesso", {
         position: "bottom-center",

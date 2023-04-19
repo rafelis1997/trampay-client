@@ -25,9 +25,9 @@ export function RootLayout({ children }: { children: ReactNode }) {
             className="object-contain h-11"
           />
           {user && (
-            <div>
+            <div className="flex flex-col gap-1">
               <span>{user.email}</span>
-              <span>{user.balance}</span>
+              <span className="text-sm">Saldo: {user.balance}</span>
             </div>
           )}
         </div>

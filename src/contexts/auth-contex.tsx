@@ -14,6 +14,7 @@ interface AuthContextType {
   token: string | undefined;
   isLoggedIn: boolean;
   signIn: (email: string, password: string) => Promise<void>;
+  renewSession: () => Promise<void>;
 }
 
 export const AuthContext = createContext({} as AuthContextType);
@@ -68,6 +69,7 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
         token: session.token,
         isLoggedIn: session.user !== undefined,
         signIn,
+        renewSession: () => checkIfThereIsSession(),
       }}
     >
       {children}
