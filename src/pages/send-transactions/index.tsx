@@ -31,6 +31,9 @@ export default function SendTransactions() {
   });
 
   async function sendFile(data: sendTransactionsInput) {
+    const id = toast.loading("Enviando...", {
+      position: "bottom-center",
+    });
     try {
       const formData = new FormData();
       const files = data.file_asset as FileList;
@@ -44,12 +47,18 @@ export default function SendTransactions() {
 
       await renewSession();
 
-      toast.success("Transações adicionadas com sucesso", {
+      toast.update(id, {
+        render: "Transações adicionadas com sucesso",
+        type: "success",
+        isLoading: false,
         position: "bottom-center",
       });
     } catch (error) {
-      toast.error("Não foi possível adicionar as transações", {
+      toast.update(id, {
+        render: "Não foi possível adicionar as transações",
+        type: "error",
         theme: "dark",
+        isLoading: false,
         position: "bottom-center",
       });
     }
