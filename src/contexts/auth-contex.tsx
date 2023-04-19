@@ -69,7 +69,7 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
         token: session.token,
         isLoggedIn: session.user !== undefined,
         signIn,
-        renewSession: () => checkIfThereIsSession(),
+        renewSession: async () => await checkIfThereIsSession(),
       }}
     >
       {children}
