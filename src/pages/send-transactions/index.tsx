@@ -38,6 +38,7 @@ export default function SendTransactions() {
       const formData = new FormData();
       const files = data.file_asset as FileList;
       formData.append("file_asset", files[0]);
+
       await axiosApi.post("/users/transactions", formData, {
         headers: {
           Authorization: "Bearer " + token,
@@ -51,6 +52,7 @@ export default function SendTransactions() {
         render: "Transações adicionadas com sucesso",
         type: "success",
         isLoading: false,
+        autoClose: 15,
         position: "bottom-center",
       });
     } catch (error) {
@@ -58,6 +60,7 @@ export default function SendTransactions() {
         render: "Não foi possível adicionar as transações",
         type: "error",
         theme: "dark",
+        autoClose: 15,
         isLoading: false,
         position: "bottom-center",
       });
