@@ -24,7 +24,12 @@ export function RootLayout({ children }: { children: ReactNode }) {
             alt="Trampay logo"
             className="object-contain h-11"
           />
-          {user && <span>{user.email}</span>}
+          {user && (
+            <div>
+              <span>{user.email}</span>
+              <span>{user.balance}</span>
+            </div>
+          )}
         </div>
       </div>
       {children}
