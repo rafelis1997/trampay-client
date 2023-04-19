@@ -51,7 +51,7 @@ esteja rodando na sua máquina, seguindo os passos acima
 
 Rode o comando: `npm start dev`.
 
-VocÊ pode acessar a aplicação no navegador em <http://localhost:3000/>
+Você pode acessar a aplicação no navegador em <http://localhost:3000/>
 
 Se encontrar problemas ao executar o projeto você também pode entrar em contato comigo para obter suporte ou fazer perguntas.
 
