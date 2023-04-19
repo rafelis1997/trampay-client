@@ -1,6 +1,7 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
 import axios from "axios";
 import { axiosApi } from "../api/api";
+import { useRouter } from "next/router";
 
 type UserResponse = {
   id: string;
@@ -15,6 +16,7 @@ interface AuthContextType {
   isLoggedIn: boolean;
   signIn: (email: string, password: string) => Promise<void>;
   renewSession: () => Promise<void>;
+  signOut: () => Promise<void>;
 }
 
 export const AuthContext = createContext({} as AuthContextType);
@@ -25,8 +27,10 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
     token: string | undefined;
   }>({ user: undefined, token: undefined });
 
+  const router = useRouter();
+
   async function checkIfThereIsSession() {
-    const token = localStorage.getItem("session_token");
+    const token = localStorage.getItem("trampay_session_token");
 
     if (token) {
       const user = await axiosApi.get(`/auth/tokenValidate/${token}`);
@@ -36,11 +40,12 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
       if (user) {
         setSession({ user: data, token });
       }
+    } else {
+      setSession({ user: undefined, token: undefined });
     }
   }
 
   async function signIn(email: string, password: string) {
-    console.log("Signing in...");
     try {
       const session = await axiosApi.post("/auth/login", {
         email,
@@ -50,12 +55,18 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
       const { user, token }: { user: UserResponse; token: string } =
         session.data;
 
-      await localStorage.setItem("session_token", token);
+      await localStorage.setItem("trampay_session_token", token);
       setSession({ user, token });
     } catch (error) {
       setSession({ user: undefined, token: undefined });
       throw new Error("Not Authorized");
     }
+  }
+
+  async function signOut() {
+    localStorage.removeItem("trampay_session_token");
+    checkIfThereIsSession();
+    router.push("/");
   }
 
   useEffect(() => {
@@ -70,6 +81,7 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
         isLoggedIn: session.user !== undefined,
         signIn,
         renewSession: checkIfThereIsSession,
+        signOut,
       }}
     >
       {children}

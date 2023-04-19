@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 const inter = Inter({ subsets: ["latin"] });
 
 export function RootLayout({ children }: { children: ReactNode }) {
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
 
   return (
     <div
@@ -25,10 +25,13 @@ export function RootLayout({ children }: { children: ReactNode }) {
             className="object-contain h-11"
           />
           {user && (
-            <div className="flex flex-col gap-1">
-              <span>{user.email}</span>
-              <span className="text-sm">Saldo: {user.balance}</span>
-            </div>
+            <>
+              <div className="flex flex-col gap-1">
+                <span>{user.email}</span>
+                <span className="text-sm">Saldo: {user.balance}</span>
+              </div>
+              <button onClick={() => signOut()}>Logout</button>
+            </>
           )}
         </div>
       </div>
