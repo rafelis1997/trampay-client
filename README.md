@@ -45,9 +45,7 @@ Clone o repositório para sua máquina local.
 
 Navegue até a pasta do projeto e instale as dependências usando npm install ou yarn.
 
-Certifique-se que o projeto [Trampay API](https://github.com/rafelis1997/trampay-api) 
-
-esteja rodando na sua máquina, seguindo os passos acima
+Certifique-se que o projeto [Trampay API](https://github.com/rafelis1997/trampay-api) esteja rodando na sua máquina, seguindo os passos acima
 
 Rode o comando: `npm start dev`.
 
