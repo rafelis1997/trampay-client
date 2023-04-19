@@ -25,13 +25,15 @@ export function RootLayout({ children }: { children: ReactNode }) {
             className="object-contain h-11"
           />
           {user && (
-            <>
+            <div className="flex gap-3">
               <div className="flex flex-col gap-1">
                 <span>{user.email}</span>
                 <span className="text-sm">Saldo: {user.balance}</span>
               </div>
-              <button onClick={() => signOut()}>Logout</button>
-            </>
+              <button onClick={() => signOut()} className="text-red-500">
+                Logout
+              </button>
+            </div>
           )}
         </div>
       </div>
