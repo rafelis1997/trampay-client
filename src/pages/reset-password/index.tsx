@@ -48,13 +48,16 @@ export default function ResetPassword() {
             escopo teste será retornado aqui
           </h2>
 
-          <a href={link} className="underline text-blue-500 max-w-md">
+          <a
+            href={link}
+            className="underline text-blue-500 max-w-md w-full overflow-hidden"
+          >
             {link}
           </a>
         </div>
       ) : null}
       <form
-        className="flex flex-col gap-4 max-w-md h-auto bg-slate-200 p-12 rounded drop-shadow-md"
+        className="flex flex-col gap-4 max-w-md h-auto bg-slate-200 p-12 rounded drop-shadow-md mx-4"
         onSubmit={handleSubmit(handleResetPassword)}
       >
         <h1 className="font-bold text-2xl">Resetar senha</h1>

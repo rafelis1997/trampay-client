@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
-import axios from "axios";
 import { axiosApi } from "@/api/api";
 
 const newPasswordFormSchema = z
@@ -58,7 +57,7 @@ export default function ChangePassword() {
   return (
     <div className="flex-1 flex justify-center items-center">
       <form
-        className="flex flex-col grow gap-4 max-w-md bg-slate-200 p-12 rounded drop-shadow-md"
+        className="flex flex-col grow gap-4 max-w-md bg-slate-200 p-12 rounded drop-shadow-md mx-4"
         onSubmit={handleSubmit(handleResetPassword)}
       >
         <h1 className="font-bold text-2xl">Nova senha</h1>

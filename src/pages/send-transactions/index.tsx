@@ -74,23 +74,20 @@ export default function SendTransactions() {
   }, [isLoggedIn, router]);
 
   return (
-    <div className="flex-1 flex justify-center items-center">
+    <div className="flex-1 flex justify-center items-center px-4">
       <form
-        className="flex flex-col grow gap-4 max-w-md bg-slate-200 p-12 rounded drop-shadow-md"
+        className="flex flex-col gap-4 max-w-md bg-slate-200 p-8 md:p-12 rounded drop-shadow-md mx-4"
         onSubmit={handleSubmit(sendFile)}
         encType="multipart/form-data"
       >
-        <h1 className="font-bold text-2xl">Resetar senha</h1>
-        <label
-          htmlFor="file_asset"
-          className="flex flex-col grow font-semibold"
-        >
+        <h1 className="font-bold text-2xl">Enviar arquivo</h1>
+        <label htmlFor="file_asset" className="flex flex-col font-semibold">
           Envie o arquivo (.csv) com as transações
           <input
             type="file"
             accept=".csv"
             placeholder="Arquivo .csv"
-            className="font-normal mt-2 px-4 py-2 rounded-sm"
+            className="font-normal w-full mt-2 px-4 py-2 rounded-sm overflow-hidden"
             {...register("file_asset")}
           />
           {errors.file_asset && (

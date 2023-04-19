@@ -51,7 +51,7 @@ export default function Home() {
   return (
     <div className="flex-1 flex justify-center items-center">
       <form
-        className="flex flex-col grow gap-4 max-w-md bg-slate-200 p-12 rounded drop-shadow-md"
+        className="flex flex-col grow gap-4 max-w-md bg-slate-200 p-12 rounded drop-shadow-md mx-4"
         onSubmit={handleSubmit(handleFormSubmit)}
       >
         <h1 className="font-bold text-2xl">Sign-in</h1>
